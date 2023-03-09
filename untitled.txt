@@ -1,0 +1,78 @@
+Q1. What is Abstraction in OOps? Explain with an example.
+  Abstraction focuses on hiding the internal implementations of a process or method from the user. In this way, the   user knows what he is doing but not how the work is being done.
+  
+For example, people do not think of a car as a set of thousands of individual parts. Instead they see it as a    well-defined object with its own unique behavior. This abstraction allows people to use a car to drive without knowing the complexity of the parts that form the car. They can ignore the details of how the engine transmission, and braking systems work. Instead, they are free to utilize the object as a whole
+
+from abc import ABC, abstractmethod
+class Absclass(ABC):
+    def print(self,x):
+        print("Passed value: ", x)
+    @abstractmethod
+    def task(self):
+        print("We are inside Absclass task")
+ 
+class test_class(Absclass):
+    def task(self):
+        print("We are inside test_class task")
+ 
+class example_class(Absclass):
+    def task(self):
+        print("We are inside example_class task")
+ 
+#object of test_class created
+test_obj = test_class()
+test_obj.task()
+test_obj.print(100)
+ 
+#object of example_class created
+example_obj = example_class()
+example_obj.task()
+example_obj.print(200)
+ 
+print("test_obj is instance of Absclass? ", isinstance(test_obj, Absclass))
+print("example_obj is instance of Absclass? ", isinstance(example_obj, Absclass))
+
+Absclass is the abstract class that inherits from the ABC class from the abc module. It contains an abstract method task() and a print() method which are visible by the user. Two other classes inheriting from this abstract class are test_class and example_class. Both of them have their own task() method.
+
+Q2. Differentiate between Abstraction and Encapsulation. Explain with an example.
+
+  *Abstraction works on the design level.                        * Encapsulation works on the application level.
+  *Abstraction is implemented to hide unnecessary data           * and withdrawing relevant dataEncapsulation is the                                                                    mechanism of hiding the code and the data                                                                            together from the outside world or misuse
+  *It highlights what the work of an object instead of           * how the object works isIt focuses on the inner                                                                      details of how the object works. Modifications                                                                      can be done later to the settings.
+  *Abstraction focuses on outside viewing, for example,          * shifting the car.Encapsulation focuses on                                                                            internal working or inner viewing, for example,                                                                      the production of the car.
+  *Abstraction is supported in Java with the interface           * Encapsulation is supported using, e.g. public                                                                         private and secure access modification systems.                                            
+  *In a nutshell, abstraction is hiding implementation           *In a nutshell, encapsulation is hiding the data     with the help of getters and setters.                           with the help of an interface and an abstract
+                                                                  class.
+                                                                  
+The most significant difference between the two is that data abstraction is a method which helps to hide the unwanted data from the user, while data encapsulation is a method which helps to hide data using a single entity.
+
+Q3. What is abc module in python? Why is it used?
+ The 'abc' module in Python library provides the infrastructure for defining custom abstract base classes.Abstract base classes provide a way to define interfaces when other techniques like hasattr() would be clumsy or subtly wrong (for example with magic methods). ABCs introduce virtual subclasses, which are classes that don’t inherit from a class but are still recognized by isinstance() and issubclass() functions. There are many built-in ABCs in Python. ABCs for Data structures like Iterator, Generator, Set, mapping etc. are defined in collections.abc module. The numbers module defines numeric tower which is a collection of base classes for numeric data types.
+ 
+ 
+The abc module defines ABCMeta class which is a metaclass for defining abstract base class. Following example defines Shape class as an abstract base class using ABCMeta. The shape class has area() method decorated by abstractmethod.
+
+A Rectangle class now uses above Shape class as its parent and implementing the abstract area() method. Since it is a concrete class, it can be instantiated and imlemented area() method can be called
+
+import abc
+class Shape(metaclass=abc.ABCMeta):
+   @abc.abstractmethod
+   def area(self):
+      pass
+class Rectangle(Shape):
+   def __init__(self, x,y):
+      self.l = x
+      self.b=y
+   def area(self):
+      return self.l*self.b
+r = Rectangle(10,20)
+print ('area: ',r.area())
+
+Q4. How can we achieve data abstraction?
+Data Abstraction in Python can be achieved through creating abstract classes and inheriting them later.
+
+Q5. Can we create an instance of an abstract class? Explain your answer.
+NO  we can not create an instance of an abstract class.
+we can create an instance of a class that extents our abstract class.
+
+The whole point of an abstract class is that it's abstract -- we've defined an interface but not an implementation. Without an implementation, instantiating the class wouldn't produce a meaningful or useful result. If it does/would make sense to instantiate objects of that class, then we simply don't want to use an abstract class in the first place
